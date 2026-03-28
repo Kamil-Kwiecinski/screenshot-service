@@ -67,13 +67,15 @@ app.post('/screenshot', async (req, res) => {
     });
 
     const page = await browser.newPage();
+    page.setDefaultNavigationTimeout(60000);
+    page.setDefaultTimeout(60000);
     await page.setViewport({
       width:             Number(width),
       height:            Number(height),
       deviceScaleFactor: 1,
     });
 
-    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
+    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 60000 });
 
     // Poczekaj na załadowanie wszystkich obrazków
     await page.evaluate(() => {
